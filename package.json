@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-backend",
+  "version": "1.0.0",
+  "description": "My Portfolio Services",
+  "main": "handler.js",
+  "dependencies": {
+    "file-type": "^16.0.0",
+    "lambda-hooks": "^0.2.0",
+    "serverless-s3-sync": "^1.15.0",
+    "serverless-webpack": "^5.3.5",
+    "sharp": "^0.26.2",
+    "uuid": "^8.3.1",
+    "webpack": "^5.2.0",
+    "yup": "^0.29.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cyber-SubFlame",
+  "license": "ISC"
+}
