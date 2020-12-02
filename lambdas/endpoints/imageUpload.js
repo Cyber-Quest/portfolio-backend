@@ -2,12 +2,17 @@ import Responses from '../common/API_Responses';
 import * as fileType from 'file-type';
 import { v4 as uuid } from 'uuid';
 import * as AWS from 'aws-sdk';
+const { verifyJWT } = require("../common/JWT");
 
 const s3 = new AWS.S3();
 
 const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg'];
 
-exports.handler = async event => {
+exports.handler = async event => { 
+    const { auth, message } = verifyJWT(event.headers);  
+    if(auth === false)
+        return Responses._500({message: message});
+
     try {
         const body = JSON.parse(event.body);
 

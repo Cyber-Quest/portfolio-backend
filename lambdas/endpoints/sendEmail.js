@@ -1,10 +1,13 @@
 const Responses = require('../common/API_Responses');
-const AWS = require('aws-sdk');
+const AWS = require('aws-sdk'); 
+const { verifyJWT } = require("../common/JWT");
 
 const SES = new AWS.SES();
 
 exports.handler = async event => {
-    console.log('event', event);
+    const { auth, message } = verifyJWT(event.headers); 
+    if(auth === false)
+        return Responses._500({message: message});
 
     const { to, from, subject, text } = JSON.parse(event.body);
 
