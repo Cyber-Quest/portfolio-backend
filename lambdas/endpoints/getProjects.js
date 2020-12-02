@@ -1,15 +1,10 @@
 const Responses = require('../common/API_Responses');
 const Dynamo = require('../common/Dynamo');
-const { withHooks } = require('../common/hooks');
-const { verifyJWT } = require("../common/JWT");
+const { withHooks } = require('../common/hooks'); 
 
 const tableName = process.env.tableName;
 
-const handler = async event => {  
-    const { auth, message } = verifyJWT(event.headers); 
-    if(auth === false)
-        return Responses._500({message: message});
-
+const handler = async event => {    
     const gamePlayers = await Dynamo.scan({
         tableName
     });

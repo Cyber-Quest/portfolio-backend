@@ -2,6 +2,12 @@ const jwt = require('jsonwebtoken');
 
 const messageSecretJWT = process.env.messageSecretJWT;
 
+const createJWT = (id) =>{
+  return jwt.sign({ id }, messageSecretJWT, {
+        expiresIn: "15m"  
+  });
+}
+
 const verifyJWT = (req) =>{
     let token = req['x-access-token'];
     if (!token)  return {auth: false, message: "No token provided."};
@@ -14,4 +20,4 @@ const verifyJWT = (req) =>{
      message: "Failed to authenticate token."};   
 }
 
-module.exports = { verifyJWT };
+module.exports = { verifyJWT, createJWT };
