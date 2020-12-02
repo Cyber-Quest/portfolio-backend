@@ -10,6 +10,7 @@ provider:
   environment: 
       tableName: ${self:custom.tableName}
       imageUploadBucket: ${self:custom.imageUploadBucket}
+      messageSecretJWT: ${self:custom.messageSecretJWT}
       region: ${self:provider.region}
   iamRoleStatements:
       - Effect: Allow
@@ -22,7 +23,8 @@ provider:
       - free:
           -myFreeApiKey
       - paid:
-          -myPaidApiKey
+          - value: myClientThirdValueOfMinLength20
+            description: This is explicitly provided api key 
   usagePlan:
       - free:
           quota:
@@ -40,6 +42,13 @@ provider:
               burstLimit: 200
 
 functions: 
+    login:
+        handler: lambdas/endpoints/login.handler
+        events:
+            - http:
+                  path: login
+                  method: POST
+                  cors: true
     getProjects:
         handler: lambdas/endpoints/getProjects.handler
         events:
@@ -70,14 +79,19 @@ functions:
                   cors: true
 
 plugins:  
-       - serverless-webpack
+    - serverless-dynamodb-local
+    - serverless-offline
 
 package:
-       individually: true
+    individually: true
 
 custom: 
+    messageSecretJWT: maca-coar-nha-2-1187por
     imageUploadBucket: portfolio-images-upload-9983
     tableName: projects-table
+    dynamodb:
+        start:
+            migrate: true
 
 resources:
     Resources: 
