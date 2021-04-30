@@ -1,13 +1,16 @@
 const AWS = require('aws-sdk');
-
+AWS.config.update({
+    accessKeyId: "AKIASRSX6LFF4QLXA3J4",
+    secretAccessKey: "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",
+    "region": "sa-east-1"
+}); 
 const documentClient = new AWS.DynamoDB.DocumentClient();
 
 const Dynamo = {
     async get(TableName) {
         const params = {
             TableName
-        };
-
+        }; 
         const data = await documentClient.get(params).promise();
 
         if (!data || !data.Item) {

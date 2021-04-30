@@ -23,6 +23,6 @@
   "author": "Cyber-SubFlame",
   "license": "ISC",
   "devDependencies": {
-    "serverless-offline": "^6.8.0"
+    "serverless-offline": "^6.9.0"
   }
 }
