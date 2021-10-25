@@ -1,3 +1,5 @@
+org: cyberquest
+app: portfolio-backend
 service: portfolio-backend 
 frameworkVersion: '2'
 
