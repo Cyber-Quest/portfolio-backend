@@ -1,9 +1,17 @@
-import Responses from '../common/API_Responses';
-import * as fileType from 'file-type';
-import { v4 as uuid } from 'uuid';
-import * as AWS from 'aws-sdk'; 
+const Responses = require('../common/API_Responses');
+const fileType = require('file-type');
+const { v4: uuidv4 } = require('uuid');
+const AWS = require('aws-sdk'); 
 
-const s3 = new AWS.S3();
+AWS.config.update({
+    signatureVersion: 'v4',
+    accessKeyId: "AKIAYT4ZWCNTEXSLEHMV",
+    secretAccessKey: "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",
+    "region": "sa-east-1"
+});
+const s3 = new AWS.S3({
+    
+});
 
 const allowedMimes = ['image/jpeg', 'image/png', 'image/jpg'];
 
@@ -33,11 +41,11 @@ exports.handler = async event => {
             return Responses._400({ message: 'mime types dont match' });
         }
 
-        const name = uuid();
+        const name = uuidv4();
         const key = `${name}.${detectedExt}`;
 
         console.log(`writing image to bucket called ${key}`);
-
+        
         await s3
             .putObject({
                 Body: buffer,

@@ -9,7 +9,7 @@ const createJWT = (id) =>{
 }
 
 const verifyJWT = (req) =>{
-    let token = req['x-access-token'];
+    let token = req['Authorization'];
     if (!token)  return {auth: false, message: "No token provided."};
     
     return {
